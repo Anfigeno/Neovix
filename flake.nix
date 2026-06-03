@@ -12,7 +12,7 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      moduloHM = ./src/opcion.nix;
+      moduloHM = ./src/default.nix;
 
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
