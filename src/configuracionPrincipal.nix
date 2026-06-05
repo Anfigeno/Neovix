@@ -21,7 +21,7 @@ in
       {
         enable = true;
         defaultEditor = cfg.editorPorDefecto;
-        extraLuaConfig = cfg.configuracion;
+        initLua = cfg.configuracion;
         extraPackages =
           complementosActivados
           |> lib.mapAttrsToList (_: complemento: complemento.dependenciasDeSistema)
