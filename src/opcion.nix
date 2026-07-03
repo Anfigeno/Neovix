@@ -6,7 +6,11 @@ in
 {
   options.programs.neovix = {
     activar = mkEnableOption "Activar neovix";
-    editorPorDefecto = mkEnableOption "Editor por defecto";
+    editorPorDefecto = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Si Neovim debe ser el editor por defecto";
+    };
     configuracion = mkOption {
       type = types.str;
       default = "";
@@ -35,17 +39,17 @@ in
               type = types.package;
               description = "Paquete del complemento";
             };
-            dependencias = mkOption {
+            complementosDependientes = mkOption {
               type = types.listOf types.package;
               default = [ ];
               description = "Complementos de los que depende el complemento";
             };
-            dependenciasDeSistema = mkOption {
+            paquetesDependientes = mkOption {
               type = types.listOf types.package;
               default = [ ];
               description = "Paquetes de los que depende el complemento";
             };
-            dependenciasDeLua = mkOption {
+            paquetesDeLuaDependientes = mkOption {
               type = types.listOf types.str;
               default = [ ];
               description = "Paquetes de Lua de los que depende el complemento";
@@ -229,6 +233,9 @@ in
                             "v"
                             "x"
                             "s"
+                            "o"
+                            "c"
+                            "t"
                             ""
                           ]
                         );

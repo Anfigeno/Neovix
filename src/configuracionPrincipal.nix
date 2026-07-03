@@ -24,17 +24,20 @@ in
         initLua = cfg.configuracion;
         extraPackages =
           complementosActivados
-          |> lib.mapAttrsToList (_: complemento: complemento.dependenciasDeSistema)
-          |> lib.flatten
+          |> lib.mapAttrsToList (_: complemento: complemento.paquetesDependientes)
+          |> lib.lists.flatten
           |> (x: cfg.paquetesExtra ++ x);
         extraLuaPackages =
           let
-            paquetesLuaExtra =
-              complementosActivados
-              |> lib.mapAttrsToList (_: complemento: complemento.dependenciasDeLua)
-              |> lib.lists.flatten;
+            todosLosPaquetesLua =
+              cfg.paquetesExtra
+              ++ (
+                complementosActivados
+                |> lib.mapAttrsToList (_: complemento: complemento.paquetesDeLuaDependientes)
+                |> lib.lists.flatten
+              );
           in
-          ps: paquetesLuaExtra |> map (nombre: ps.${nombre});
+          ps: todosLosPaquetesLua |> map (nombre: ps.${nombre});
         plugins = [
           {
             plugin = pkgs.vimPlugins.lazy-nvim;
@@ -124,9 +127,7 @@ in
                   change_detection.enabled = false;
                 };
               in
-              /* lua */ ''
-                require("lazy").setup(${lib.generators.toLua { } configuracion})
-              '';
+              /* lua */ ''require("lazy").setup(${lib.generators.toLua { } configuracion})'';
           }
         ];
       };
