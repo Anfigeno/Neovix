@@ -24,15 +24,21 @@ in
         |> lib.mapAttrsToList (_: lenguaje: lenguaje.gramaticas)
         |> lib.lists.flatten;
       configuracion = /* lua */ ''
-        require('nvim-treesitter').setup({
-          highlight = { enable = true },
-          indent = { enable = true },
+        vim.opt.rtp:prepend("${pkgs.vimPlugins.nvim-treesitter}/runtime/")
+
+        require('nvim-treesitter').setup({ indent = { enable = true } })
+
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = ${lib.generators.toLua { } (cfg.lenguajes |> lib.mapAttrsToList (nombre: _: nombre))},
+          callback = function()
+            vim.treesitter.start()
+
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo.foldmethod = 'expr'
+          end,
         })
       '';
-      lazy.eventos = [
-        "BufReadPost"
-        "BufNewFile"
-      ];
+      lazy.activar = false;
     };
   };
 }
