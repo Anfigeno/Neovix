@@ -19,7 +19,7 @@ in
   programs.neovix.complementos = lib.mkIf (cfg.activar && lenguajesActivadosYConGramaticas != { }) {
     "Treesitter" = {
       paquete = pkgs.vimPlugins.nvim-treesitter;
-      dependencias =
+      complementosDependientes =
         lenguajesActivadosYConGramaticas
         |> lib.mapAttrsToList (_: lenguaje: lenguaje.gramaticas)
         |> lib.lists.flatten;
