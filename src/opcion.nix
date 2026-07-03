@@ -283,7 +283,7 @@ in
       description = "Configuración de formateadores";
     };
     lspconfig = {
-      dependencias = mkOption {
+      complementosDependientes = mkOption {
         type = types.listOf types.package;
         default = [ ];
         description = "Complementos dependientes";

@@ -36,7 +36,7 @@ lib.mkIf (cfg.activar && lenguajesActivadosYConLsps != { }) {
 
   programs.neovix.complementos."LSP Config" = {
     paquete = pkgs.vimPlugins.nvim-lspconfig;
-    dependencias = cfg.lspconfig.dependencias;
+    complementosDependientes = cfg.lspconfig.complementosDependientes;
     configuracion = # lua
       let
         configuracionesDeLsp =
