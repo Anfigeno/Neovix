@@ -261,25 +261,22 @@ in
       description = "Complementos de Neovim";
     };
     formateadores = mkOption {
-      type = types.nullOr (
-        types.attrsOf (
-          types.submodule {
-            options = {
-              paquete = mkOption {
-                type = types.nullOr types.package;
-                default = null;
-                description = "Paquete del formateador";
-              };
-              configuracion = mkOption {
-                type = types.nullOr (types.attrsOf types.anything);
-                default = null;
-                description = "Configuración del formateador (https://github.com/stevearc/conform.nvim)";
-              };
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            paquete = mkOption {
+              type = types.package;
+              description = "Paquete del formateador";
             };
-          }
-        )
+            configuracion = mkOption {
+              type = types.nullOr (types.attrsOf types.anything);
+              default = null;
+              description = "Configuración del formateador (https://github.com/stevearc/conform.nvim)";
+            };
+          };
+        }
       );
-      default = null;
+      default = { };
       description = "Configuración de formateadores";
     };
     lspconfig = {

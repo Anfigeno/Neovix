@@ -30,10 +30,7 @@ let
 in
 
 lib.mkIf (cfg.activar && lenguajesActivadosYConFormateadores != { }) {
-  home.packages =
-    formateadoresEnUso
-    |> lib.mapAttrsToList (_: formateador: formateador.paquete)
-    |> builtins.filter (x: x != null);
+  home.packages = formateadoresEnUso |> lib.mapAttrsToList (_: formateador: formateador.paquete);
 
   programs.neovix.complementos."Conform" = {
     paquete = pkgs.vimPlugins.conform-nvim;
