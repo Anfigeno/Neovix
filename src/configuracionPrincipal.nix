@@ -47,7 +47,7 @@ in
 
                 crearPropiedadDeLista = clave: lista: if lista == [ ] then { } else { ${clave} = lista; };
 
-                formatearDependencias =
+                formatearComplementosDependientes =
                   dependencias:
                   dependencias
                   |> map (dependencia: {
@@ -111,7 +111,7 @@ in
                     }
                     // formatearOpciones opciones
                     // formatearConfiguracion complemento.configuracion
-                    // formatearDependencias dependencias
+                    // formatearComplementosDependientes complementosDependientes
                     // formatearTiposDeArchivos lazy.tiposDeArchivo
                     // formatearEventos lazy.eventos
                     // formatearComandos lazy.comandos
