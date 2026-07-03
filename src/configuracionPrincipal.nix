@@ -71,14 +71,7 @@ in
                       '';
                     };
 
-                formatearOpciones =
-                  opciones:
-                  if opciones == null then
-                    { }
-                  else
-                    {
-                      opts = lib.generators.toLua { } opciones;
-                    };
+                formatearOpciones = opciones: if opciones == null then { } else { opts = opciones; };
 
                 accionOComando =
                   tecla: with tecla; if accion != "" then /* lua */ "function() ${accion} end" else ''"${comando}"'';
