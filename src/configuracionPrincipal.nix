@@ -65,10 +65,19 @@ in
                   else
                     {
                       config = lib.mkLuaInline /* lua */ ''
-                        function()
+                        function(complemento, opciones)
                           ${configuracion}
                         end
                       '';
+                    };
+
+                formatearOpciones =
+                  opciones:
+                  if opciones == null then
+                    { }
+                  else
+                    {
+                      opts = lib.generators.toLua { } opciones;
                     };
 
                 accionOComando =
@@ -104,6 +113,7 @@ in
                       name = clave;
                       lazy = lazy.activar;
                     }
+                    // formatearOpciones opciones
                     // formatearConfiguracion complemento.configuracion
                     // formatearDependencias dependencias
                     // formatearTiposDeArchivos lazy.tiposDeArchivo

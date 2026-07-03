@@ -50,6 +50,11 @@ in
               default = [ ];
               description = "Paquetes de Lua de los que depende el complemento";
             };
+            opciones = mkOption {
+              type = types.nullOr (types.attrsOf types.anything);
+              default = null;
+              description = "Opciones del complemento";
+            };
             configuracion = mkOption {
               type = types.str;
               default = "";
