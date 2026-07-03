@@ -43,12 +43,10 @@ lib.mkIf (cfg.activar && lenguajesActivadosYConLsps != { }) {
           lspsEnUso
           |> lib.mapAttrsToList (
             clave: lsp:
-            if lsp.configuracion == null then
-              null
-            else
-              /* lua */ ''vim.lsp.config("${clave}", ${
-                (lsp.configuracion // cfg.lspconfig.configuracionComun) |> lib.generators.toLua { }
-              }) ''
+            /* lua */ ''vim.lsp.config("${clave}", ${
+              ((if lsp.configuracion == null then { } else lsp.configuracion) // cfg.lspconfig.configuracionComun)
+              |> lib.generators.toLua { }
+            }) ''
           )
           |> builtins.filter (x: x != null)
           |> builtins.concatStringsSep "\n";
